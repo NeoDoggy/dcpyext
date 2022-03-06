@@ -1,10 +1,4 @@
-import os
-from posix import uname_result
-import discord 
-from discord.ext import commands
-from dotenv import load_dotenv
-from datetime import datetime as dt
-from youtube_dl import YoutubeDL
+from head import *
 
 
 class music_cog(commands.Cog):
@@ -67,7 +61,7 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
 
-    @commands.command(name="play", help="Plays a selected song from youtube")
+    @commands.command(name="p", help="Plays a selected song from youtube")
     async def p(self, ctx, *args):
         query = " ".join(args)
         
@@ -86,7 +80,7 @@ class music_cog(commands.Cog):
                 if self.is_playing == False:
                     await self.play_music()
 
-    @commands.command(name="queue", help="Displays the current songs in queue")
+    @commands.command(name="q", help="Displays the current songs in queue")
     async def q(self, ctx):
         retval = ""
         for i in range(0, len(self.music_queue)):
@@ -105,6 +99,6 @@ class music_cog(commands.Cog):
             #try to play next in the queue if it exists
             await self.play_music()
             
-    @commands.command(name="disconnect", help="Disconnecting bot from VC")
-    async def dc(self, ctx):
+    @commands.command(name="leave", help="Disconnecting bot from VC")
+    async def lv(self, ctx):
         await self.vc.disconnect()
