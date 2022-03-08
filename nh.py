@@ -1,10 +1,16 @@
-from head import *
+import os
+import discord 
+from discord.ext import commands
+from dotenv import load_dotenv
+from hentai import Hentai, Format
+from hentai import Utils
 
 class nh_cog(commands.Cog):
     def __init__(self,bot):
         self.bot=bot
 
     #nhcrawler
+    """
     @commands.command(name="nh",help="nhentai finder")
     async def nh(self,ctx,args):
         num=args
@@ -16,3 +22,12 @@ class nh_cog(commands.Cog):
         await ctx.send('Finished',delete_after=1)
         await ctx.channel.send(file=tmpfile,embed=nhembed)
         os.system(f'rm -rf ./temphtml/{num}')
+    """
+    @commands.command(name="nhfind",help="nhentai fetcher")
+    async def nhf(self,ctx,args):
+        num=args
+        book=Hentai(int(args))
+        nhembed=discord.Embed(title=book.title(),url=book.url)
+        nhembed.set_image(url=book.cover)
+        nhembed.set_footer(text="nhentai-"+args)
+        await ctx.send(embed=nhembed)

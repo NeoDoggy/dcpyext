@@ -1,5 +1,7 @@
-from head import *
-
+import discord
+from discord.ext import commands
+from dotenv import load_dotenv
+from youtube_dl import YoutubeDL
 
 class music_cog(commands.Cog):
     def __init__(self, bot):

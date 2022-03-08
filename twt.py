@@ -1,4 +1,12 @@
-from head import *
+import os
+#from posix import uname_result
+from dotenv import load_dotenv
+import discord 
+from discord.ext import commands
+import tweepy
+import requests
+import pandas as pd
+
 
 load_dotenv()
 
