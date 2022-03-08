@@ -16,7 +16,10 @@ Music:
 /leave - also, as shown
 
 Twitter:
-no commands yet
+/twtfind {tag}
+multiple tags usage:
+OR "#tag1 OR #tag2"
+AND : "#tag1 #tag2"
 
 nhentai:
 /nh {booknum} - find a doujinshi from nhentai
