@@ -31,7 +31,7 @@ def find(q=""):
     # Define query
     query = q
     tweets = client.search_recent_tweets(query=query, 
-                                        tweet_fields=['author_id','entities'],
+                                        tweet_fields=['referenced_tweets'],
                                         max_results=10
                                         )
     tweets_dict = tweets.json()
@@ -52,7 +52,9 @@ class twt_cog(commands.Cog):
     @commands.command(name="twtfind",help="find images on twitter")
     async def tf(self,ctx,args):
         tags="("+args+")"
-        name=find(tags+' -is:retweet has:images')
+        name=find(tags+' has:images')
         #await ctx.send(name['entities.urls'][0][0]['expanded_url'])
-        await ctx.send(f"https://twitter.com/{id_to_username(name['author_id'][0])}/status/{name['id'][0]}")
+        author=name['text'][0].split('@')[1].split(':')[0]
+        await ctx.send((f"https://twitter.com/{author}/status/{name['referenced_tweets'][0][0]['id']}"))
+        #await ctx.send(f"https://twitter.com/{id_to_username(name['author_id'][0])}/status/{name['id'][0]}")
         

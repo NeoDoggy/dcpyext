@@ -27,7 +27,7 @@ OR "#tag1 OR #tag2"
 AND : "#tag1 #tag2"
 
 nhentai:
-/nh {booknum} - find a doujinshi from nhentai
+/nhfind {booknum} - find a doujinshi from nhentai
 ```
 """
 
