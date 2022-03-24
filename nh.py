@@ -23,11 +23,29 @@ class nh_cog(commands.Cog):
         await ctx.channel.send(file=tmpfile,embed=nhembed)
         os.system(f'rm -rf ./temphtml/{num}')
     """
-    @commands.command(name="nhfind",help="nhentai fetcher")
-    async def nhf(self,ctx,args):
-        num=args
-        book=Hentai(int(args))
-        nhembed=discord.Embed(title=book.title(),url=book.url)
-        nhembed.set_image(url=book.cover)
-        nhembed.set_footer(text="nhentai-"+args)
-        await ctx.send(embed=nhembed)
+    @commands.command(name="nh",help="nhentai fetcher")
+    async def nh(self,ctx,args=None,*nt): # <- nt = number or tag , [args=None] for no command inputs
+        if args==None:
+            await ctx.send("command needed")
+        else:
+            if args=="random":
+                book=Utils.get_random_hentai()
+                nhembed=discord.Embed(title=book.title(),url=book.url)
+                nhembed.set_image(url=book.cover)
+                nhembed.set_footer(text="nhentai-"+str(book.id),icon_url='https://i.imgur.com/KRARu5m.png')
+                await ctx.send(embed=nhembed)
+
+            elif args=="find":
+                try:
+                    num=int(nt[0])
+                    book=Hentai(num)
+                    nhembed=discord.Embed(title=book.title(),url=book.url)
+                    nhembed.set_image(url=book.cover)
+                    nhembed.set_footer(text="nhentai-"+nt[0],icon_url='https://i.imgur.com/KRARu5m.png')
+                    await ctx.send(embed=nhembed)
+                except:
+                    await ctx.send("no numbers provide")
+
+            else:
+                em = discord.Embed(title=f"Error!!!", description=f"Command not found.\nuse /help for commands", color=0xff4060) 
+                await ctx.send(embed=em)
