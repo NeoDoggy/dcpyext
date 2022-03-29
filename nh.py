@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from hentai import Hentai, Format
 from hentai import Utils
 
+
 class nh_cog(commands.Cog):
     def __init__(self,bot):
         self.bot=bot
