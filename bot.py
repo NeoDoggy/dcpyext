@@ -6,11 +6,11 @@ from dotenv import load_dotenv
 from discord_ui import *
 #from datetime import datetime as dt
 
-from music import music_cog
-from main import main_cog
-from nh import nh_cog
-from twt import twt_cog
-from help import help_cog
+from cogs import music 
+from cogs import main
+from cogs import nh
+from cogs import twt
+from cogs import help
 
 load_dotenv()
 token = os.getenv('bot_token')
@@ -21,10 +21,10 @@ ui = UI(bot)
 
 bot.remove_command('help')
 
-bot.add_cog(music_cog(bot))
-bot.add_cog(main_cog(bot))
-bot.add_cog(nh_cog(bot))
-bot.add_cog(twt_cog(bot))
-bot.add_cog(help_cog(bot))
+bot.add_cog(music.music_cog(bot))
+bot.add_cog(main.main_cog(bot))
+bot.add_cog(nh.nh_cog(bot))
+bot.add_cog(twt.twt_cog(bot))
+bot.add_cog(help.help_cog(bot))
 
 bot.run(token)
