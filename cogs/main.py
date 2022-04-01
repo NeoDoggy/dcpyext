@@ -8,6 +8,7 @@ import requests
 import time
 from discord.ext.commands import CommandNotFound
 
+
 class main_cog(commands.Cog):
     def __init__(self,bot):
         self.bot=bot
@@ -17,12 +18,12 @@ class main_cog(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self,ctx, error): 
         if isinstance(error, commands.CommandNotFound): 
-            em = discord.Embed(title=f"Error!!!", description=f"Command not found.\nuse /help for commands", color=0xff4060) 
+            em = discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"Command not found.\nuse /help for commands", color=0xff4060) 
             await ctx.send(embed=em)
         else:
             print(error)
 
-    
+
     #start up
     @commands.Cog.listener()
     async def on_ready(self):
@@ -35,11 +36,12 @@ class main_cog(commands.Cog):
         #await self.bot.user.edit(username="nyadoggy")  #edit username
         #img = requests.get("https://i.imgur.com/jtBJhrQ.jpg").content 
         #await self.bot.user.edit(avatar=img)  #change avatar
-       
+
     #test
-    @commands.command(name="test",help="test")
+    @commands.command(name="test",help="ping")
     async def test(self,ctx):
-        await ctx.send('im alive')
+        msg = await ctx.send(self.bot.get_emoji(869447774876336139))
+        await msg.delete(delay=3)
 
     #test embed
     @commands.command(name="testembed",help="test embed")

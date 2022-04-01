@@ -1,29 +1,17 @@
 import os
-import discord 
+import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-from hentai import Hentai, Format
-from hentai import Utils
+from hentai import *
+from discord_ui import *
+from asyncio import TimeoutError
+import time
 
 
 class nh_cog(commands.Cog):
     def __init__(self,bot):
         self.bot=bot
 
-    #nhcrawler
-    """
-    @commands.command(name="nh",help="nhentai finder")
-    async def nh(self,ctx,args):
-        num=args
-        await ctx.send('file fetching... plz wait',delete_after=1)
-        os.system(f'./nhcrawl.sh -n {num} -l 1')
-        tmpfile=discord.File(f'./temphtml/{num}/1.png',filename="image.png")
-        nhembed=discord.Embed(title=f'cover of {num}',url=f'https://nhentai.net/g/{num}',description='wah',color=0xFFC0CB)
-        nhembed.set_image(url='attachment://image.png')
-        await ctx.send('Finished',delete_after=1)
-        await ctx.channel.send(file=tmpfile,embed=nhembed)
-        os.system(f'rm -rf ./temphtml/{num}')
-    """
     @commands.command(name="nh",help="nhentai fetcher")
     async def nh(self,ctx,args=None,*nt): # <- nt = number or tag , [args=None] for no command inputs
         if args==None:
@@ -46,6 +34,81 @@ class nh_cog(commands.Cog):
                     await ctx.send(embed=nhembed)
                 except:
                     await ctx.send("no numbers provide")
+
+            elif args=="query":
+                try:
+                    kw=nt[0].replace(',',' ')
+                    dj=Utils.search_by_query(kw, sort=Sort.PopularWeek)
+                    dj=list(dj)
+                    page=0
+                    book=dj[page]
+                    nhembed=discord.Embed(title=book.title(),url=book.url)
+                    nhembed.set_image(url=book.cover)
+                    nhembed.set_footer(text="nhentai-"+str(book.id),icon_url='https://i.imgur.com/KRARu5m.png')
+                    msg = await ctx.send(embed=nhembed, components=[
+                        Button("previous", color="blurple", custom_id="pre"),
+                        Button("next", color="green", custom_id="nex")
+                    ])
+                    while True:
+                        try:
+                            btn = await msg.wait_for("button", self.bot, by=ctx.author, timeout=20)
+                            bc = btn.data["custom_id"]
+                            
+                            if page+1<len(dj) and page>=0:
+                                if bc=="nex":
+                                    page+=1
+                                elif bc=="pre" and page>0:
+                                    page-=1 
+
+                            book=dj[page]
+                            nhembed=discord.Embed(title=book.title(),url=book.url)
+                            nhembed.set_image(url=book.cover)
+                            nhembed.set_footer(text="nhentai-"+str(book.id),icon_url='https://i.imgur.com/KRARu5m.png')
+                            await msg.edit(embed=nhembed)
+
+                        except TimeoutError:
+                            break
+
+                except:
+                    await ctx.send("no keywords provided")
+
+            elif args=="read":
+                try:
+                    page=0
+                    num=int(nt[0])
+                    book=Hentai(num)
+                    nhembed=discord.Embed(title=book.title(),url=book.url)
+                    nhembed.set_image(url=book.image_urls[page])
+                    nhembed.set_footer(text="nhentai-"+nt[0]+f"-page {page+1}",icon_url='https://i.imgur.com/KRARu5m.png')                   
+                    msg = await ctx.send(embed=nhembed, components=[
+                        Button("previous", color="blurple", custom_id="pre"),
+                        Button("next", color="green", custom_id="nex")
+                    ])
+                    while True:
+                        try:
+                            btn = await msg.wait_for("button", self.bot, by=ctx.author, timeout=20)
+                            bc = btn.data["custom_id"]
+
+                            if page<book.num_pages and page>=0:
+                                if bc=="nex" and page<book.num_pages-1:
+                                    page+=1
+                                elif bc=="pre" and page>0:
+                                    page-=1 
+                                else:
+                                    em = discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"start or end of the book", color=0xff4060) 
+                                    emsg = await ctx.send(embed=em)
+                                    await emsg.delete(delay=2)
+                            
+                            nhembed=discord.Embed(title=book.title(),url=book.url)
+                            nhembed.set_image(url=book.image_urls[page])
+                            nhembed.set_footer(text="nhentai-"+nt[0]+f"-page {page+1}",icon_url='https://i.imgur.com/KRARu5m.png')
+                            await msg.edit(embed=nhembed)
+
+                        except TimeoutError:
+                            break
+
+                except:
+                    await ctx.send("no numbers provided")
 
             else:
                 em = discord.Embed(title=f"Error!!!", description=f"Command not found.\nuse /help for commands", color=0xff4060) 

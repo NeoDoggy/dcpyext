@@ -20,62 +20,88 @@ class help_cog(commands.Cog):
     def __init__(self,bot):
         self.bot=bot
 
-
     #help
     @commands.command(name="help",help="help")
     async def help(self,ctx):
-        eh=discord.Embed(title="Help",description="choose a help label below",color=random.choice(colors))
+        eh=discord.Embed(title=":exclamation:| Help",description="choose a help label below",color=random.choice(colors))
         msg = await ctx.send(embed=eh,
-        components=
-        [SelectMenu(placeholder="command for help",
-            options=[
-                SelectOption(
-                    label="Music",
-                    value="music",
-                    description="music commands",
-                    emoji="🎵"
-                ),
-                SelectOption(
-                    label="Twitter",
-                    value="twitter",
-                    description="twitter commands",
-                    emoji="🕊"
-                ),
-                SelectOption(
-                    label="nhentai",
-                    value="nhentai",
-                    description="nhentai commands",
-                    emoji="👃🏻"
-                ),
-            ])]
-        )
+        components=[
+            SelectMenu(placeholder="command for help",
+                options=[
+                    SelectOption(
+                        label="Music",
+                        value="music",
+                        description="music commands",
+                        emoji="🎵"
+                    ),
+                    SelectOption(
+                        label="Twitter",
+                        value="twitter",
+                        description="twitter commands",
+                        emoji=self.bot.get_emoji(958762701004349471)
+                    ),
+                    SelectOption(
+                        label="nhentai",
+                        value="nhentai",
+                        description="nhentai commands",
+                        emoji=self.bot.get_emoji(941019319846989875)
+                    ),
+                    SelectOption(
+                        label="cancel",
+                        value="cancel",
+                        description="cancel command help center",
+                        emoji="❌"
+                    ),
+                ]),
+        ])
 
-        eM=discord.Embed(title="Music",color=random.choice(colors)).add_field(name = 'commands:', value= """
+        eM=discord.Embed(title=":musical_note: | Music",color=random.choice(colors)).add_field(
+                            name = 'commands:', value= """\n
                                 /p {url} or /p music {name} - play YT songs
+
                                 /q - show queue
+
                                 /skip - skip, as shown
-                                /leave - also, as shown""", inline = False)
-        eT=discord.Embed(title="Twitter",color=random.choice(colors)).add_field(name = 'commands:', value= """
+
+                                /leave - also, as shown
+                                \n""", inline = False).set_footer(
+                            text="help center > music commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
+
+        eT=discord.Embed(title="<:twticon:958762701004349471> | Twitter",color=random.choice(colors)).add_field(
+                            name = 'commands:', value= """\n
                                 /twtfind {tag}
+
                                 multiple tags usage:
-                                OR "#tag1 OR #tag2"
-                                AND : "#tag1 #tag2""", inline = False)
-        eN=discord.Embed(title="nhentai",color=random.choice(colors)).add_field(name = 'commands:', value= """
-                                /nh 
-                                > find {booknum} - find a doujinshi from nhentai
-                                > random - generate a random hentai from the library""", inline = False)
+                                OR gate : "#tag1 OR #tag2"
+                                AND gate : "#tag1 #tag2"
+                                \n""", inline = False).set_footer(
+                            text="help center > twitter commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
 
-        try:
-            sel = await msg.wait_for("select", self.bot, by=ctx.author, timeout=20)
-            hc = sel.selected_options[0].value
-            await msg.delete()
+        eN=discord.Embed(title="<:Icon_Latency:941019319846989875> | nhentai",color=random.choice(colors)).add_field(
+                            name = 'commands:', value= """\n
+                                /nh find {booknum} - find a doujinshi from nhentai
 
-            if hc=="music":
-                await ctx.reply(embed=eM,mention_author=False)
-            elif hc=="twitter":
-                await ctx.reply(embed=eT,mention_author=False)
-            elif hc=="nhentai":
-                await ctx.reply(embed=eN,mention_author=False)
-            
-        except TimeoutError:
-            await msg.delete()
+                                /nh random - generate a random hentai from the library
+
+                                /nh query {tags,author,groups.etc} - find doujinshi with any keywords
+
+                                /nh read {booknum} - read a doujinshi
+                                \n""", inline = False).set_footer(
+                            text="help center > nhentai commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
+        while True:
+            try:
+                sel = await msg.wait_for("select", self.bot, by=ctx.author, timeout=20)
+                hc = sel.selected_options[0].value
+                #await msg.delete()
+                if hc=="music":
+                    await ctx.reply(embed=eM,mention_author=False)
+                elif hc=="twitter":
+                    await ctx.reply(embed=eT,mention_author=False)
+                elif hc=="nhentai":
+                    await ctx.reply(embed=eN,mention_author=False)
+                elif hc=="cancel":
+                    await msg.delete()
+                    await ctx.message.delete()
+                
+            except TimeoutError:
+                await msg.delete()

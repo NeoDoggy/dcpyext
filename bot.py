@@ -17,7 +17,7 @@ token = os.getenv('bot_token')
 prefix = os.getenv('prefix')
 
 bot=commands.Bot(command_prefix=prefix)
-ui = UI(bot)
+ui = UI(bot,override_dpy=True)
 
 bot.remove_command('help')
 
@@ -26,5 +26,6 @@ bot.add_cog(main.main_cog(bot))
 bot.add_cog(nh.nh_cog(bot))
 bot.add_cog(twt.twt_cog(bot))
 bot.add_cog(help.help_cog(bot))
+
 
 bot.run(token)
