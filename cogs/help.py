@@ -47,6 +47,12 @@ class help_cog(commands.Cog):
                         emoji=self.bot.get_emoji(941019319846989875)
                     ),
                     SelectOption(
+                        label="covid",
+                        value="covid",
+                        description="covid commands",
+                        emoji=self.bot.get_emoji(958768110247223296)
+                    ),
+                    SelectOption(
                         label="cancel",
                         value="cancel",
                         description="cancel command help center",
@@ -88,6 +94,13 @@ class help_cog(commands.Cog):
                                 /nh read {booknum} - read a doujinshi
                                 \n""", inline = False).set_footer(
                             text="help center > nhentai commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
+        
+        eC=discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} | covid",color=random.choice(colors)).add_field(
+                            name = 'commands:', value= """\n
+                                /covid - show today's infected population
+                                \n""", inline = False).set_footer(
+                            text="help center > covid commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
+        
         while True:
             try:
                 sel = await msg.wait_for("select", self.bot, by=ctx.author, timeout=20)
@@ -99,6 +112,8 @@ class help_cog(commands.Cog):
                     await ctx.reply(embed=eT,mention_author=False)
                 elif hc=="nhentai":
                     await ctx.reply(embed=eN,mention_author=False)
+                elif hc=="covid":
+                    await ctx.reply(embed=eC,mention_author=False)
                 elif hc=="cancel":
                     await msg.delete()
                     await ctx.message.delete()

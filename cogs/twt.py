@@ -74,11 +74,15 @@ class twt_cog(commands.Cog):
                 btn = await msg.wait_for("button", self.bot, by=ctx.author, timeout=20)
                 bc = btn.data["custom_id"]
                 
-                if page+1<10 and page>=0:
-                    if bc=="nex":
+                if page<10 and page>=0:
+                    if bc=="nex" and page+1<10:
                         page+=1
                     elif bc=="pre" and page>0:
                         page-=1 
+                    else:
+                        em = discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"start or end of the list", color=0xff4060) 
+                        emsg = await ctx.send(embed=em)
+                        await emsg.delete(delay=2)
                 author=name['text'][page].split('@')[1].split(':')[0]
                 await msg.edit((f"https://twitter.com/{author}/status/{name['referenced_tweets'][page][0]['id']}"))
 

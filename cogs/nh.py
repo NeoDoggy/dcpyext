@@ -15,7 +15,7 @@ class nh_cog(commands.Cog):
     @commands.command(name="nh",help="nhentai fetcher")
     async def nh(self,ctx,args=None,*nt): # <- nt = number or tag , [args=None] for no command inputs
         if args==None:
-            await ctx.send("command needed")
+            await ctx.send(embed=discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"command needed", color=0xff4060) )
         else:
             if args=="random":
                 book=Utils.get_random_hentai()
@@ -33,7 +33,7 @@ class nh_cog(commands.Cog):
                     nhembed.set_footer(text="nhentai-"+nt[0],icon_url='https://i.imgur.com/KRARu5m.png')
                     await ctx.send(embed=nhembed)
                 except:
-                    await ctx.send("no numbers provide")
+                    await ctx.send(embed=discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"no numbers provided", color=0xff4060) )
 
             elif args=="query":
                 try:
@@ -54,8 +54,8 @@ class nh_cog(commands.Cog):
                             btn = await msg.wait_for("button", self.bot, by=ctx.author, timeout=20)
                             bc = btn.data["custom_id"]
                             
-                            if page+1<len(dj) and page>=0:
-                                if bc=="nex":
+                            if page<len(dj) and page>=0:
+                                if bc=="nex" and page<len(dj)-1:
                                     page+=1
                                 elif bc=="pre" and page>0:
                                     page-=1 
@@ -70,7 +70,7 @@ class nh_cog(commands.Cog):
                             break
 
                 except:
-                    await ctx.send("no keywords provided")
+                    await ctx.send(embed=discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"no keywords provided", color=0xff4060) )
 
             elif args=="read":
                 try:
@@ -108,7 +108,7 @@ class nh_cog(commands.Cog):
                             break
 
                 except:
-                    await ctx.send("no numbers provided")
+                    await ctx.send(embed=discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"no numbers provided", color=0xff4060))
 
             else:
                 em = discord.Embed(title=f"Error!!!", description=f"Command not found.\nuse /help for commands", color=0xff4060) 
