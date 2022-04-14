@@ -31,7 +31,7 @@ class main_cog(commands.Cog):
             for channel in guild.text_channels:
                 self.text_channel_list.append(channel)
         print(f'{self.bot.user} is ready to work')
-        activity = activity = discord.Game(name="幫ニオ做家事的遊戲")
+        activity = discord.Game(name="/help for commands")
         await self.bot.change_presence(status=discord.Status.online, activity=activity)
         #await self.bot.user.edit(username="nyadoggy")  #edit username
         #img = requests.get("https://i.imgur.com/jtBJhrQ.jpg").content 
