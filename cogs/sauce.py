@@ -18,16 +18,17 @@ class sauce_cog(commands.Cog):
 
     @commands.command(name="image",help="image url test")
     async def imgt(self,ctx,*arg):
-        global results
         try:
             try:
-                results = sauce.from_url(ctx.message.attachments[0].url)
+                imgurl = ctx.message.attachments[0].url
             except:
-                results = sauce.from_url(arg)
+                imgurl = arg
         except:
             em = discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"No image or url provided", color=0xff4060)
             await ctx.send(embed=em)
         
+        results = sauce.from_url(imgurl)
+
         if results[0].similarity<80.0:
             em = discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"No similar images found", color=0xff4060)
             await ctx.send(embed=em)
