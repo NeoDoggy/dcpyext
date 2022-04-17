@@ -23,20 +23,20 @@ class sauce_cog(commands.Cog):
                 imgurl = ctx.message.attachments[0].url
             except:
                 imgurl = arg
+        
+            results = sauce.from_url(imgurl)
+            
+            if results[0].similarity<80.0:
+                em = discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"No similar images found", color=0xff4060)
+                await ctx.send(embed=em)
+            else:
+                results=results[0]
+                em=discord.Embed(title=results.title,url=results.urls[0],description=f"""
+                author : {results.author}
+                """)
+                em.set_thumbnail(url=results.thumbnail)
+                em.set_footer(text="saucenao reverse search",icon_url='https://i.imgur.com/8O0yxf7.png')
+                await ctx.send(embed=em)
         except:
             em = discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"No image or url provided", color=0xff4060)
-            await ctx.send(embed=em)
-        
-        results = sauce.from_url(imgurl)
-
-        if results[0].similarity<80.0:
-            em = discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} Error!!!", description=f"No similar images found", color=0xff4060)
-            await ctx.send(embed=em)
-        else:
-            results=results[0]
-            em=discord.Embed(title=results.title,url=results.urls[0],description=f"""
-            author : {results.author}
-            """)
-            em.set_thumbnail(url=results.thumbnail)
-            em.set_footer(text="saucenao reverse search",icon_url='https://i.imgur.com/8O0yxf7.png')
             await ctx.send(embed=em)
