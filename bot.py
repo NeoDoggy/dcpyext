@@ -13,6 +13,7 @@ from cogs import nh
 from cogs import twt
 from cogs import help
 from cogs import covid
+from cogs import sauce
 #from cogs import slashC
 
 load_dotenv()
@@ -31,6 +32,7 @@ bot.add_cog(nh.nh_cog(bot))
 bot.add_cog(twt.twt_cog(bot))
 bot.add_cog(help.help_cog(bot))
 bot.add_cog(covid.covid_cog(bot))
+bot.add_cog(sauce.sauce_cog(bot))
 #bot.add_cog(slashC.slash_cog(bot))
 
 

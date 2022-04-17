@@ -25,7 +25,7 @@ def get_ctx():
     for i in ElemN:
         tdc = i.replace("\n",'')
         if tdc.startswith(today):
-            if '新增' in tdc:
+            if tdc.strip(today).startswith('新增'):
                 covid_ctx=tdc.strip(today)
                 retctx.append(covid_ctx)
                 has=True
@@ -34,7 +34,7 @@ def get_ctx():
         for i in ElemN:
             tdc = i.replace("\n",'')
             if tdc.startswith(yesterday):
-                if '新增' in tdc:
+                if tdc.strip(yesterday).startswith('新增'):
                     covid_ctx=tdc.strip(yesterday)
                     retctx.append(covid_ctx)
                     retctx.append(has)

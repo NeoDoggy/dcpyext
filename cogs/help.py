@@ -53,6 +53,12 @@ class help_cog(commands.Cog):
                         emoji=self.bot.get_emoji(958768110247223296)
                     ),
                     SelectOption(
+                        label="image",
+                        value="image",
+                        description="image search commands",
+                        emoji=self.bot.get_emoji(965152697420492800)
+                    ),
+                    SelectOption(
                         label="cancel",
                         value="cancel",
                         description="cancel command help center",
@@ -101,6 +107,13 @@ class help_cog(commands.Cog):
                                 \n""", inline = False).set_footer(
                             text="help center > covid commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
         
+        eIS=discord.Embed(title=f"{self.bot.get_emoji(965152697420492800)} | image",color=random.choice(colors)).add_field(
+                            name = 'commands:', value= """\n
+                                /image {url} - reverse image and anime scene search
+                                p.s. this command also supports attachments
+                                \n""", inline = False).set_footer(
+                            text="help center > image commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
+        
         while True:
             try:
                 sel = await msg.wait_for("select", self.bot, by=ctx.author, timeout=20)
@@ -114,6 +127,8 @@ class help_cog(commands.Cog):
                     await ctx.reply(embed=eN,mention_author=False)
                 elif hc=="covid":
                     await ctx.reply(embed=eC,mention_author=False)
+                elif hc=="image":
+                    await ctx.reply(embed=eIS,mention_author=False)
                 elif hc=="cancel":
                     await msg.delete()
                     await ctx.message.delete()
