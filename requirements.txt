@@ -11,3 +11,4 @@ pandas==1.2.3
 pixiv-api==1.0.0
 PixivPy==3.5.11
 python-dotenv==0.17.1
+saucenao-api==2.4.0 
