@@ -43,6 +43,11 @@ class main_cog(commands.Cog):
         msg = await ctx.send(self.bot.get_emoji(869447774876336139))
         await msg.delete(delay=3)
 
+    @commands.command(name="michan",help="mafumafu")
+    async def michan(self,ctx):
+        await ctx.message.delete()
+        await ctx.send(self.bot.get_emoji(967357799107530862))
+
     #test embed
     @commands.command(name="testembed",help="test embed")
     async def tsemb(self,ctx):
