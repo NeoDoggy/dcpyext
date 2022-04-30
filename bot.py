@@ -1,12 +1,12 @@
 import os
-import discord 
+import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from discord_ui import *
 from discord_slash import *
 
 
-from cogs import music 
+from cogs import music
 from cogs import main
 from cogs import nh
 from cogs import twt
