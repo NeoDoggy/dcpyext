@@ -69,19 +69,19 @@ class help_cog(commands.Cog):
 
         eM=discord.Embed(title=":musical_note: | Music",color=random.choice(colors)).add_field(
                             name = 'commands:', value= """\n
-                                /p {url} or /p music {name} - play YT songs
+                                \p {url} or \p music {name} - play YT songs
 
-                                /q - show queue
+                                \q - show queue
 
-                                /skip - skip, as shown
+                                \skip - skip, as shown
 
-                                /leave - also, as shown
+                                \leave - also, as shown
                                 \n""", inline = False).set_footer(
                             text="help center > music commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
 
         eT=discord.Embed(title="<:twticon:958762701004349471> | Twitter",color=random.choice(colors)).add_field(
                             name = 'commands:', value= """\n
-                                /twtfind {tag}
+                                \twtfind {tag}
 
                                 multiple tags usage:
                                 OR gate : "#tag1 OR #tag2"
@@ -91,25 +91,25 @@ class help_cog(commands.Cog):
 
         eN=discord.Embed(title="<:Icon_Latency:941019319846989875> | nhentai",color=random.choice(colors)).add_field(
                             name = 'commands:', value= """\n
-                                /nh find {booknum} - find a doujinshi from nhentai
+                                \nh find {booknum} - find a doujinshi from nhentai
 
-                                /nh random - generate a random hentai from the library
+                                \nh random - generate a random hentai from the library
 
-                                /nh query {tags,author,groups.etc} - find doujinshi with any keywords
+                                \nh query {tags,author,groups.etc} - find doujinshi with any keywords
 
-                                /nh read {booknum} - read a doujinshi
+                                \nh read {booknum} - read a doujinshi
                                 \n""", inline = False).set_footer(
                             text="help center > nhentai commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
         
         eC=discord.Embed(title=f"{self.bot.get_emoji(958768110247223296)} | covid",color=random.choice(colors)).add_field(
                             name = 'commands:', value= """\n
-                                /covid - show today's infected population
+                                \covid - show today's infected population
                                 \n""", inline = False).set_footer(
                             text="help center > covid commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
         
         eIS=discord.Embed(title=f"{self.bot.get_emoji(965152697420492800)} | image",color=random.choice(colors)).add_field(
                             name = 'commands:', value= """\n
-                                /image {url} - reverse image and anime scene search
+                                \image {url} - reverse image and anime scene search
                                 p.s. this command also supports attachments
                                 \n""", inline = False).set_footer(
                             text="help center > image commands",icon_url='https://i.imgur.com/jtBJhrQ.jpg')
